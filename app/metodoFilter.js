@@ -8,13 +8,16 @@ function filtrarLivros() {
     const categoria = elementoBtn.value
     let livrosFiltrados = categoria == 'disponivel' ? filtrarLivrosDisponiveis() : filtrarPorCategoria(categoria)
     exibirLivros(livrosFiltrados)
-    if (categoria == 'disponivel') {exibirTotalLivros()}
+    if (categoria == 'disponivel') {
+        const valorTotal = calculaTotalLivros(livrosFiltrados)
+        exibirTotalLivros(valorTotal)
+    }
 }
 
-function exibirTotalLivros() {
+function exibirTotalLivros(valorTotal) {
     return elementoTotalLivros.innerHTML = `
     <div class="livros__disponiveis">
-        <p>Todos os livros disponíveis por R$ <span id="valor">299,00</span></p>
+        <p>Todos os livros disponíveis por R$ <span id="valor">${valorTotal.toFixed(2).toString().replace(".", ",")}</span></p>
     </div>
     `
 }
